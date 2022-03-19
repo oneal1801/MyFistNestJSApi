@@ -6,7 +6,7 @@ export class TaskEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({unique: true })
+  @Column({ unique: true })
   title: string;
 
   @Column()

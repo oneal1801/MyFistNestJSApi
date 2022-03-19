@@ -1,4 +1,4 @@
-import { NotFoundException, Query } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { GetTasksFilterDto } from '../dto/get-tasks-filter.dto';
@@ -17,10 +17,10 @@ export class TaskRepository extends Repository<TaskEntity> {
     }
 
     if (search) {
-        query.andWhere(
-            'task.title LIKE LOWER(:search) OR task.description LIKE LOWER(:search)', 
-            { search: `%${search}%`},
-        )
+      query.andWhere(
+        'task.title LIKE LOWER(:search) OR task.description LIKE LOWER(:search)',
+        { search: `%${search}%` },
+      );
     }
 
     const tasks = await query.getMany();

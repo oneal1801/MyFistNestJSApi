@@ -16,7 +16,7 @@ export class TasksService {
     private readonly taskRepository: TaskRepository,
   ) {}
 
-  getTasks(filterDto: GetTasksFilterDto): Promise<TaskEntity[]>{
+  getTasks(filterDto: GetTasksFilterDto): Promise<TaskEntity[]> {
     return this.taskRepository.getTasks(filterDto);
   }
 
