@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserEntity } from 'src/auth/entity/user.entity';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { GetTasksFilterDto } from '../dto/get-tasks-filter.dto';
 import { TaskEntity } from '../entity/task.entity';
@@ -16,23 +17,33 @@ export class TasksService {
     private readonly taskRepository: TaskRepository,
   ) {}
 
-  getTasks(filterDto: GetTasksFilterDto): Promise<TaskEntity[]> {
-    return this.taskRepository.getTasks(filterDto);
+  getTasks(
+    filterDto: GetTasksFilterDto,
+    user: UserEntity,
+  ): Promise<TaskEntity[]> {
+    return this.taskRepository.getTasks(filterDto, user);
   }
 
-  getTaskById(id: string): Promise<TaskEntity> {
-    return this.taskRepository.getTaskById(id);
+  getTaskById(id: string, user: UserEntity): Promise<TaskEntity> {
+    return this.taskRepository.getTaskById(id, user);
   }
 
-  createTask(createTaskDto: CreateTaskDto): Promise<TaskEntity> {
-    return this.taskRepository.createTask(createTaskDto);
+  createTask(
+    createTaskDto: CreateTaskDto,
+    user: UserEntity,
+  ): Promise<TaskEntity> {
+    return this.taskRepository.createTask(createTaskDto, user);
   }
 
-  deleteTask(id: string): Promise<void> {
-    return this.taskRepository.deleteTask(id);
+  deleteTask(id: string, user: UserEntity): Promise<void> {
+    return this.taskRepository.deleteTask(id, user);
   }
 
-  updateTaskStatus(id: string, status: TaskStatus): Promise<TaskEntity> {
-    return this.taskRepository.updateTaskStatus(id, status);
+  updateTaskStatus(
+    id: string,
+    status: TaskStatus,
+    user: UserEntity,
+  ): Promise<TaskEntity> {
+    return this.taskRepository.updateTaskStatus(id, status, user);
   }
 }
